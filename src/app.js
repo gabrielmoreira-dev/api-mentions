@@ -36,7 +36,9 @@ process.on('SIGINT', () => {
     });
 });
 
-const indexRoutes = require('../routes/index-routes')
+const Mention = require('./models/mention')
+
+const indexRoutes = require('./routes/index-routes')
 app.use('/', indexRoutes)
 
 module.exports = app
