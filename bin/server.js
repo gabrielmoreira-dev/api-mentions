@@ -2,15 +2,6 @@ const app = require('../src/app')
 const http = require('http')
 const debug = require('debug')('nodestr:server')
 
-const port = normalizePort(process.env.PORT || 3000)
-app.set('port', port)
-
-const server = http.createServer(app)
-server.listen(port)
-server.on('error', onError)
-server.on('listening', onListening)
-console.log(`Server is listening at localhost:${port}`)
-
 const normalizePort = val => {
     const port = parseInt(val, 10);
 
@@ -55,3 +46,12 @@ const onListening = _ => {
         : 'port ' + addr.port;
     debug('Listening on ' + bind);
 }
+
+const port = normalizePort(process.env.PORT || 3000)
+app.set('port', port)
+
+const server = http.createServer(app)
+server.listen(port)
+server.on('error', onError)
+server.on('listening', onListening)
+console.log(`Server is listening at localhost:${port}`)
