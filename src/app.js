@@ -1,7 +1,8 @@
 const express = require('express')
+const app = express()
+
 const mongoose = require('mongoose')
 require('dotenv').config()
-const app = express()
 
 mongoose.connect(
     process.env.DATABASE_CONNECTION_STRING,
@@ -36,9 +37,18 @@ process.on('SIGINT', () => {
     });
 });
 
+const bodyParser = require('body-parser')
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
+
 const Mention = require('./models/mention')
 
 const indexRoutes = require('./routes/index-routes')
 app.use('/', indexRoutes)
+
+const mentionRoutes = require('./routes/mention-routes')
+app.use('/mentions', mentionRoutes)
 
 module.exports = app
